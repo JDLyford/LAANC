@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>       
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+            <nav class="navbar navbar-expand-lg">
+                    <img src= "images\aeronyde_icon.png">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                      <ul class="navbar-nav">
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#">File <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Edit</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">View</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Window</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="#">Help</a>
+                              </li>
+                        </ul>
+                        <button  type="button" class="ml-auto" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                    </div>
+                </div>
+            <div id="mainContent" class="row">
+                <div class="col-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Airspace</h5>
+                            <h6 class="card-subtitle mb-2 text-muted text-center">Map Legend</h6>
+                            <p><span id="green">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Item 1</p>
+                            <p><span id="red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Item 2</p>
+                            <p><span id="blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Item 3</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <img id="airmapsAPI" class="img-fluid" src="http://via.placeholder.com/800x800">
+                </div>
+                <div class="col-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Weather</h5>
+                            <p class="card-text">Wind Speed: <span id="windSpeed"></span> mph</p>
+                            <p class="card-text">Humidity: <span id="humidity"></span>%</p>
+                            <p class="card-text">Temperature: <span id="temperature"></span> F</p>
+                            <p class="card-text">Cloud Cover: <span id="cloudCover"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    <!-- Javascript links -->
+    <script src="javascript.js"></script>
+</body>
+</html>
