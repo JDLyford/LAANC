@@ -29,4 +29,12 @@ $.ajax({
     $("#humidity").text(response.main.humidity);
     $("#temperature").text(response.main.temp);
     $("#cloudCover").text(response.clouds.all);
+    $("#description").text(response.weather[0].description);
+    $("#city").text(response.name);
+
+    var src = "http://openweathermap.org/img/w/"+response.weather[0].icon+".png"
+    var icon = $("<img>")
+    $("#icon").append(icon.attr("src", src));
+    
+
   });
