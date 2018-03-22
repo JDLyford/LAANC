@@ -1,3 +1,15 @@
+
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyD1Exght0S1PthGRMHG64arxtytH1HeGik",
+  authDomain: "laanc-1800.firebaseapp.com",
+  databaseURL: "https://laanc-1800.firebaseio.com",
+  projectId: "laanc-1800",
+  storageBucket: "",
+  messagingSenderId: "811344206487"
+};
+firebase.initializeApp(config);
+
 var APIKey = "331f43d81f177bfe67fe00ca71dcd80d";
 var longitute = "";
 var latitude = "";
