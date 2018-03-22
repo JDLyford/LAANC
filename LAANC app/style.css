@@ -32,3 +32,8 @@ h5 {
 #blue {
     background-color: blue;
 }
+
+.footer{
+    top: -60px;
+    margin-left: 35%;
+}
