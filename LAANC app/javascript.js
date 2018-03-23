@@ -32,10 +32,7 @@ $.ajax({
 
     console.log(response);
 
-    console.log("Wind Speed: " + response.wind.speed);
-    console.log("Humidity: " + response.main.humidity);
-    console.log("Temperature (F): " + response.main.temp);
-    console.log("Cloud Cover: " + response.clouds.all + "%");
+
 
     $("#windSpeed").text(response.wind.speed);
     $("#humidity").text(response.main.humidity);
@@ -43,10 +40,40 @@ $.ajax({
     $("#cloudCover").text(response.clouds.all);
     $("#description").text(response.weather[0].description);
     $("#city").text(response.name);
+    $("#visibility").text(response.visibility + "Meters");
+
 
     var src = "http://openweathermap.org/img/w/"+response.weather[0].icon+".png"
     var icon = $("<img>")
     $("#icon").append(icon.attr("src", src));
+
+    // creating the submit button and the event listener as an onclick function
+    // storing the user input data as variables
+
+    $("#submit").on("click", function(event){
+      var onSiteDate = $("#onSiteDate").val().trim();
+      var onSiteTime = $("#onSiteTime").val().trim();
+      var pilot = $("#pilot").val().trim();
+      var crew = $("crew").val().trim();
+      var airCraft = $("#airCraft").val().trim();
+      var internalNotes = $("internalNotes").val().trim();
+    })
+
+    $("#map").on("click", function(event){
+      var uasURL ="http://uas-faa.opendata.arcgis.com/datasets/6269fe78dc9848d28c6a17065dd56aaf_0.geojson";
+
+      $.ajax({
+        url: uasURL,
+        method: "GET"
+      }).then(function(response){
+        console.log(response);
+        console.log(response.features[0].properties.AIRPORTID);
+        console.log(response.features[0].properties.CEILING);
+      })
+
+    })
+
+
     
 
   });
