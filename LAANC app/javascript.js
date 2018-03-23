@@ -9,6 +9,7 @@ var config = {
   messagingSenderId: "811344206487"
 };
 firebase.initializeApp(config);
+var database = firebase.database();
 
 var APIKey = "331f43d81f177bfe67fe00ca71dcd80d";
 var longitute = "";
@@ -59,7 +60,18 @@ $.ajax({
       var airCraft = $("#airCraft").val().trim();
       var internalNotes = $("#internalNotes").val().trim();
       console.log(onSiteDate);
-    })
+
+      database.ref().push({
+        onSiteDate: onSiteDate,
+        onSiteTime: onSiteTime,
+        pilot: pilot,
+        crew: crew,
+        airCraft: airCraft,
+        internalNotes: internalNotes,
+        dateAdded: firebase.database.ServerValue.TIMESTAMP,
+      });
+
+    });
 
     $("#main-div").on("click", function(event){
       var uasURL ="http://uas-faa.opendata.arcgis.com/datasets/6269fe78dc9848d28c6a17065dd56aaf_0.geojson";
