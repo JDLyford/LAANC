@@ -40,25 +40,67 @@
                         </ul>
                         <button  type="button" class="ml-auto" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
-                              </button>
+                        </button>
                     </div>
                 </div>
             <div id="mainContent" class="row">
                 <div class="col-2">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title text-center">Airspace</h5>
-                            <h6 class="card-subtitle mb-2 text-muted text-center">Map Legend</h6>
-                            <p><span id="green">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Item 1</p>
-                            <p><span id="red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Item 2</p>
-                            <p><span id="blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Item 3</p>
+                            <h5 class="card-title text-center">Details</h5>
+                            <label for="onSiteDate">On-Site Date</label>
+                            <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="onSiteDate">
+                            </div>
+                            <label for="onSiteTime">On-Site Time</label>
+                            <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="onSiteTime">
+                            </div>
+                            <label for="pilot">Pilot in Command</label>
+                            <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="pilot">
+                            </div>
+                            <label for="crew">Crew</label>
+                            <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="crew">
+                            </div>
+                            <label for="airCraft">AirCraft</label>
+                            <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="airCraft">
+                            </div>
+                            <label for="internalNotes">Internal Notes</label>
+                            <div class="input-group mb-3">
+                            <textarea class="form-control" id="internalNotes" aria-label="With textarea"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-8">
-                        <a href="#"><button type="button" id="map" class="btn btn-secondary">Map</button></a>
-                        <a href="plan.html"><button type="button" id="plan" class="btn btn-light">Plan</button></a>
-                        <img id="mapDiv" class="img-fluid position-relative" src="http://via.placeholder.com/800x800">
+                    <div class="row">
+                        <div class="col">
+                            <a href="#"><button type="button" id="map" class="btn btn-secondary">Map</button></a>
+                            <a href="plan.html"><button type="button" id="plan" class="btn btn-light">Plan</button></a>
+                            <img id="mapDiv" class="img-fluid position-relative" src="http://via.placeholder.com/800x800">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">Airport ID</th>
+                                    <th scope="col">Max Alt. (Ft)</th>
+                                    <th scope="col">Requested Alt.</th>
+                                    <th scope="col">Authorization Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    
                 </div>
                 <div class="col-2">
                     <div class="card">
