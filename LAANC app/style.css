@@ -16,7 +16,7 @@ h5 {
     background-color:rgb(48, 62, 130); 
  }
 
- #airmapsAPI {
+ #mapDiv {
     top: -38px;
     z-index: -1;
  }
