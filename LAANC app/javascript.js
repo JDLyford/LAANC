@@ -59,7 +59,7 @@ $.ajax({
       var internalNotes = $("internalNotes").val().trim();
     })
 
-    $("#map").on("click", function(event){
+    $("#mapDiv").on("click", function(event){
       var uasURL ="http://uas-faa.opendata.arcgis.com/datasets/6269fe78dc9848d28c6a17065dd56aaf_0.geojson";
 
       $.ajax({
