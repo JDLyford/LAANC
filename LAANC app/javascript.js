@@ -81,13 +81,17 @@ $.ajax({
         method: "GET"
       }).then(function(response){
         var airportId = response.features[0].properties.AIRPORTID;
+        var ceiling = response.features[0].properties.CEILING;
         console.log(response);
         console.log(response.features[0].properties.AIRPORTID);
         console.log(response.features[0].properties.CEILING);
 
+        $("#body").append("<tr><td>" + airportId + "</td><td>" + ceiling + "</td><td>");
+
       })
 
     })
+
 
 
     
