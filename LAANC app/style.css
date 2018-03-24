@@ -16,9 +16,14 @@ h5 {
     background-color:rgb(48, 62, 130); 
  }
 
- #mapDiv {
+ #main-div {
+     height: 100%;
+ }
+
+ #map {
     top: -38px;
-    z-index: -1;
+    height: 100%;
+    width: 730px;
  }
 
  .nav-link{
@@ -42,9 +47,30 @@ h5 {
     margin-left: 35%;
 }
 
-.table{
+.table {
+    text-align: center;
+    background: white;
+}
+
+#body {
     text-align: center;
 }
-#body{
-    text-align: center;
+
+#mapPage {
+    position: relative;
+    z-index: 5;
+}
+
+#plan {
+    position: relative;
+    z-index: 5;
+}
+
+#centerContent {
+    position: relative;
+}
+
+#tableArea {
+    position: absolute;
+    bottom: 0;
 }

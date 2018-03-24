@@ -17,11 +17,56 @@ var latitude = "";
 var geo = "";
 var city ="orlando";
 var zipcode="";
+var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var labelIndex = 0;
 
 //for city, later can add for long&latitude
 var queryURL = "https://api.openweathermap.org/data/2.5/weather?" + "q=" + city + "&units=imperial&appid="
    + APIKey;
 
+// creating google map
+function initialize() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {
+      lat: 28.54,
+      lng: -81.38
+    },
+    zoom: 8
+  });
+  google.maps.event.addListener(map, 'click', function(event) {
+    addMarker(event.latLng, map);
+    console.log(event.latLng.lng());
+    console.log(event.latLng.lat());
+    var uasURL ="http://uas-faa.opendata.arcgis.com/datasets/6269fe78dc9848d28c6a17065dd56aaf_0.geojson";
+      
+    $.ajax({
+      url: uasURL,
+      method: "GET"
+    }).then(function(response){
+      var airportId = response.features[0].properties.AIRPORTID;
+      var ceiling = response.features[0].properties.CEILING;
+      console.log(response);
+      console.log(response.features[0].properties.AIRPORTID);
+      console.log(response.features[0].properties.CEILING);
+
+      $("#body").append("<tr><td>" + airportId + "</td><td>" + ceiling + "</td><td>");
+
+    })
+  });
+}
+
+// Adds a marker to the map.
+function addMarker(location, map) {
+  // Add the marker at the clicked location, and add the next-available label
+  // from the array of alphabetical characters.
+  var marker = new google.maps.Marker({
+    position: location,
+    label: labels[labelIndex++ % labels.length],
+    map: map
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
 
 $.ajax({
   url: queryURL,
@@ -72,25 +117,6 @@ $.ajax({
       });
 
     });
-
-    $("#main-div").on("click", function(event){
-      var uasURL ="http://uas-faa.opendata.arcgis.com/datasets/6269fe78dc9848d28c6a17065dd56aaf_0.geojson";
-      
-      $.ajax({
-        url: uasURL,
-        method: "GET"
-      }).then(function(response){
-        var airportId = response.features[0].properties.AIRPORTID;
-        var ceiling = response.features[0].properties.CEILING;
-        console.log(response);
-        console.log(response.features[0].properties.AIRPORTID);
-        console.log(response.features[0].properties.CEILING);
-
-        $("#body").append("<tr><td>" + airportId + "</td><td>" + ceiling + "</td><td>");
-
-      })
-
-    })
 
 
 

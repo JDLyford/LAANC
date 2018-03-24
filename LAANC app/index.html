@@ -10,6 +10,7 @@
     <link rel="icon" href="images/aeronyde_icon.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9_3Tyu14z8VAgV3n0JKBk2uhi5Jqve4M"></script>
 </head>       
 <body>
     <div class="container">
@@ -55,10 +56,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-8" id="main-div">
-                        <a href="#"><button type="button" id="map" class="btn btn-secondary">Map</button></a>
+                <div class="col-8">
+                        <a href="#"><button type="button" id="mapPage" class="btn btn-secondary">Map</button></a>
                         <a href="plan.html"><button type="button" id="plan" class="btn btn-light">Plan</button></a>
-                        <img id="mapDiv" class="img-fluid position-relative" src="http://via.placeholder.com/800x800">
+                        <div id="map"></div>
                 </div>
                 <div class="col-2">
                     <div class="card">
