@@ -1,4 +1,3 @@
-
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyD1Exght0S1PthGRMHG64arxtytH1HeGik",
@@ -12,17 +11,13 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 var APIKey = "331f43d81f177bfe67fe00ca71dcd80d";
-var longitute = "";
-var latitude = "";
-var geo = "";
+var longitude;
+var latitude;
 var city ="orlando";
-var zipcode="";
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 var labelIndex = 0;
 
-//for city, later can add for long&latitude
-var queryURL = "https://api.openweathermap.org/data/2.5/weather?" + "q=" + city + "&units=imperial&appid="
-   + APIKey;
+weatherInitial();
 
 // creating google map
 function initialize() {
@@ -33,12 +28,15 @@ function initialize() {
     },
     zoom: 8
   });
-  google.maps.event.addListener(map, 'click', function(event) {
+  google.maps.event.addListener(map, 'click' ,function(event) {
     addMarker(event.latLng, map);
-    console.log(event.latLng.lng());
-    console.log(event.latLng.lat());
+    
+    longitude = event.latLng.lng();
+    latitude = event.latLng.lat();
+    weatherGeo();
     var uasURL ="http://uas-faa.opendata.arcgis.com/datasets/6269fe78dc9848d28c6a17065dd56aaf_0.geojson";
-      
+    
+    
     $.ajax({
       url: uasURL,
       method: "GET"
@@ -68,32 +66,47 @@ function addMarker(location, map) {
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
+function weatherGeo(){
+  var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat="+latitude + "&lon=" + longitude +"&units=imperial&appid="
++ APIKey;
+$("#icon img:last-child").remove();
 $.ajax({
   url: queryURL,
   method: "GET"
 })
   .then(function(response) {
-
-    console.log(queryURL);
-
-    console.log(response);
-  
-
-
     $("#windSpeed").text(response.wind.speed);
     $("#humidity").text(response.main.humidity);
-    $("#temperature").text(response.main.temp);
+    $("#temperature").text(response.main.temp + "°");
     $("#cloudCover").text(response.clouds.all);
-    $("#description").text(response.weather[0].description);
+    $("#description").text(response.weather[0].description.toUpperCase());
     $("#city").text(response.name);
-    $("#visibility").text(response.visibility + "Meters");
-
-
+    $("#visibility").text(response.visibility + " Meters");
     var src = "http://openweathermap.org/img/w/"+response.weather[0].icon+".png"
     var icon = $("<img>")
     $("#icon").append(icon.attr("src", src));
   });
-
+}
+function weatherInitial(){
+   queryURL = "https://api.openweathermap.org/data/2.5/weather?" + "q=" + city + "&units=imperial&appid="
+   + APIKey,
+$.ajax({
+  url: queryURL,
+  method: "GET"
+})
+  .then(function(response) {
+    $("#windSpeed").text(response.wind.speed);
+    $("#humidity").text(response.main.humidity);
+    $("#temperature").text(response.main.temp + "°");
+    $("#cloudCover").text(response.clouds.all);
+    $("#description").text(response.weather[0].description.toUpperCase());
+    $("#city").text(response.name);
+    $("#visibility").text(response.visibility + " Meters");
+    var src = "http://openweathermap.org/img/w/"+response.weather[0].icon+".png"
+    var icon = $("<img>")
+    $("#icon").append(icon.attr("src", src));
+  });
+}
     // creating the submit button and the event listener as an onclick function
     // storing the user input data as variables
 
@@ -117,9 +130,3 @@ $.ajax({
       });
 
     });
-
-
-
-    
-
- 
