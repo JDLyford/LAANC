@@ -23,11 +23,12 @@ weatherInitial();
 function initialize() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {
-      lat: 28.54,
-      lng: -81.38
+      lat: 28.43,
+      lng: -81.31
     },
     zoom: 8
   });
+  // create event listener for when map is clicked
   google.maps.event.addListener(map, 'click' ,function(event) {
     addMarker(event.latLng, map);
     
@@ -35,19 +36,28 @@ function initialize() {
     latitude = event.latLng.lat();
     weatherGeo();
     var uasURL ="http://uas-faa.opendata.arcgis.com/datasets/6269fe78dc9848d28c6a17065dd56aaf_0.geojson";
-    
-    
+
+    // call the UAS database
     $.ajax({
       url: uasURL,
       method: "GET"
     }).then(function(response){
-      var airportId = response.features[0].properties.AIRPORTID;
-      var ceiling = response.features[0].properties.CEILING;
-      console.log(response);
-      console.log(response.features[0].properties.AIRPORTID);
-      console.log(response.features[0].properties.CEILING);
-
-      $("#body").append("<tr><td>" + airportId + "</td><td>" + ceiling + "</td><td>");
+      // run a for loop to see if clicked location is in one of the squares on the UAS database
+      for (i = 0; i < response.features.length; i++) {
+        if (longitude > response.features[i].geometry.coordinates[0][0][0] && longitude < response.features[i].geometry.coordinates[0][2][0] && latitude < response.features[i].geometry.coordinates[0][1][1] && latitude > response.features[i].geometry.coordinates[0][0][1]) {
+          var airportId = response.features[i].properties.AIRPORTID;
+          var ceiling = response.features[i].properties.CEILING;
+          console.log("found it");
+        }
+      }
+      // if it's not
+      if (airportId === undefined && ceiling === undefined) {
+        console.log("not in UAS grid");
+        var airportId = "No Airport";
+        var ceiling = "N/A";
+      }
+      // append relevant airport information to the table
+      $("#body").append("<tr><td>" + airportId + "</td><td>" + ceiling + "</td><td><input type='text' class='form-control'</td><td> ? </td>");
 
     })
   });
