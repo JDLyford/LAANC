@@ -16,6 +16,8 @@ var latitude;
 var city ="orlando";
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 var labelIndex = 0;
+var faa;
+var myArray = [];
 
 weatherInitial();
 var infoWindow = new google.maps.InfoWindow;
@@ -50,7 +52,12 @@ function initialize() {
     
     longitude = event.latLng.lng();
     latitude = event.latLng.lat();
+    faa = new Object();
+    faa.longitude = longitude;
+    faa.latitude = latitude;
+    myArray.push(faa);
     weatherGeo();
+
     var uasURL ="http://uas-faa.opendata.arcgis.com/datasets/6269fe78dc9848d28c6a17065dd56aaf_0.geojson";
 
     // call the UAS database
@@ -73,7 +80,7 @@ function initialize() {
         var ceiling = "N/A";
       }
       // append relevant airport information to the table
-      $("#body").append("<tr><td>" + airportId + "</td><td>" + ceiling + "</td><td><input type='text' class='form-control'</td><td> ? </td>");
+      $("#body").append("<tr><td>" + airportId + "</td><td>" + ceiling + "</td><td><input id='" + (labelIndex - 1) + "' type='text' class='form-control'</td><td> ? </td>");
 
     })
   });
@@ -137,8 +144,13 @@ $.ajax({
     // storing the user input data as variables
 
     $("#submit").on("click", function(event){
+      for (i = 0; i < labelIndex; i++) {
+        var requestedHeight = $("#" + i).val().trim();
+        myArray[i].altitude = requestedHeight;
+      }
       var onSiteDate = $("#onSiteDate").val().trim();
-      var onSiteTime = $("#onSiteTime").val().trim();
+      var onSiteStartTime = $("#onSiteStartTime").val().trim();
+      var onSiteEndTime = $("#onSiteEndTime").val().trim();
       var pilot = $("#pilot").val().trim();
       var crew = $("#crew").val().trim();
       var airCraft = $("#airCraft").val().trim();
@@ -147,11 +159,13 @@ $.ajax({
 
       database.ref().push({
         onSiteDate: onSiteDate,
-        onSiteTime: onSiteTime,
+        onSiteStartTime: onSiteStartTime,
+        onSiteEndTime: onSiteEndTime,
         pilot: pilot,
         crew: crew,
         airCraft: airCraft,
         internalNotes: internalNotes,
+        faaData: myArray,
         dateAdded: firebase.database.ServerValue.TIMESTAMP,
       });
 
