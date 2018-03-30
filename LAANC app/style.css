@@ -57,6 +57,12 @@ h5 {
     text-align: center;
 }
 
+#celebrate {
+    font-size: 40px;
+    text-align: center;
+    color: white;
+}
+
 #mapPage {
     position: relative;
     z-index: 5;

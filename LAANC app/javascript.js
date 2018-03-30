@@ -16,12 +16,16 @@ var latitude;
 var city ="orlando";
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 var labelIndex = 0;
+var counter = 0;
 var faa;
 var myArray = [];
+var flightPlan = [];
+
 
 weatherInitial();
 var infoWindow = new google.maps.InfoWindow;
 // creating google map
+
 function initialize() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {
@@ -46,6 +50,9 @@ function initialize() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
+
+  console.log(map)
+
   // create event listener for when map is clicked
   google.maps.event.addListener(map, 'click' ,function(event) {
     addMarker(event.latLng, map);
@@ -80,11 +87,26 @@ function initialize() {
         var ceiling = "N/A";
       }
       // append relevant airport information to the table
-      $("#body").append("<tr><td>" + airportId + "</td><td>" + ceiling + "</td><td><input id='" + (labelIndex - 1) + "' type='text' class='form-control'</td><td> ? </td>");
+      $("#body").append("<tr><td>" + airportId + "</td><td>" + ceiling + "</td><td><input id='" + counter + "' type='text' class='form-control'</td><td> ? </td>");
+
+      counter++;
 
     })
   });
 }
+
+
+// Construct the polygon.
+var shape = new google.maps.Polygon({
+  paths: flightPlan,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: '#FF0000',
+  fillOpacity: 0.35
+});
+
+console.log(window)
 
 // Adds a marker to the map.
 function addMarker(location, map) {
@@ -143,30 +165,45 @@ $.ajax({
     // creating the submit button and the event listener as an onclick function
     // storing the user input data as variables
 
-    $("#submit").on("click", function(event){
-      for (i = 0; i < labelIndex; i++) {
-        var requestedHeight = $("#" + i).val().trim();
-        myArray[i].altitude = requestedHeight;
-      }
-      var onSiteDate = $("#onSiteDate").val().trim();
-      var onSiteStartTime = $("#onSiteStartTime").val().trim();
-      var onSiteEndTime = $("#onSiteEndTime").val().trim();
-      var pilot = $("#pilot").val().trim();
-      var crew = $("#crew").val().trim();
-      var airCraft = $("#airCraft").val().trim();
-      var internalNotes = $("#internalNotes").val().trim();
-      console.log(onSiteDate);
+$("#submit").on("click", function(event){
+  for (i = 0; i < labelIndex; i++) {
+    var requestedHeight = $("#" + i).val().trim();
+    myArray[i].altitude = requestedHeight;
+  }
+  var onSiteDate = $("#onSiteDate").val().trim();
+  var onSiteStartTime = $("#onSiteStartTime").val().trim();
+  var onSiteEndTime = $("#onSiteEndTime").val().trim();
+  var pilot = $("#pilot").val().trim();
+  var crew = $("#crew").val().trim();
+  var airCraft = $("#airCraft").val().trim();
+  var internalNotes = $("#internalNotes").val().trim();
 
-      database.ref().push({
-        onSiteDate: onSiteDate,
-        onSiteStartTime: onSiteStartTime,
-        onSiteEndTime: onSiteEndTime,
-        pilot: pilot,
-        crew: crew,
-        airCraft: airCraft,
-        internalNotes: internalNotes,
-        faaData: myArray,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP,
-      });
+  database.ref().push({
+    onSiteDate: onSiteDate,
+    onSiteStartTime: onSiteStartTime,
+    onSiteEndTime: onSiteEndTime,
+    pilot: pilot,
+    crew: crew,
+    airCraft: airCraft,
+    internalNotes: internalNotes,
+    faaData: myArray,
+    dateAdded: firebase.database.ServerValue.TIMESTAMP,
+  });
 
-    });
+  for (i = 0; i < myArray.length; i++) {
+    flightPlan.push({lat: myArray[i].latitude, lng: myArray[i].longitude});
+  };
+  
+  shape.setMap(window.map);
+
+  console.log("submitted to database");
+
+  $("#body").empty();
+  $("#onSiteDate").val("");
+  $("#onSiteTime").val("");
+  $("#pilot").val("");
+  $("#crew").val("");
+  $("#airCraft").val("");
+  $("#internalNotes").val("");
+
+});
