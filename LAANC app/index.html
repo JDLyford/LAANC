@@ -10,7 +10,10 @@
     <link rel="icon" href="images/aeronyde_name.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9_3Tyu14z8VAgV3n0JKBk2uhi5Jqve4M"></script>
+    <script src="https://cdn.airmap.io/js/maps/v2.0/airmap.map.min.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
+    <link href="https://fonts.googleapis.com/css?family=Play" rel="stylesheet">
 </head>       
 <body>
     <div class="container">
@@ -21,7 +24,6 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
                     </button>
-                    <p id="celebrate">WE DID IT!!! ✈️✈️✈️</p>
                 </div>
             <div id="mainContent" class="row">
                 <div class="col-2">
@@ -29,9 +31,10 @@
                         <div class="card-body">
                             <h5 class="card-title text-center">Airspace</h5>
                             <h6 class="card-subtitle mb-2 text-muted text-center">Map Legend</h6>
-                            <p><span id="green">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Item 1</p>
-                            <p><span id="red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Item 2</p>
-                            <p><span id="blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Item 3</p>
+                            <p><span id="blackSquare">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Prohibited Airspace</p>
+                            <p><span id="black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Temporary Flight Restriction</p>
+                            <p><span id="red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Restricted Airspace</p>
+                            <p><span id="orange">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Commercial Airspace</p>
                         </div>
                     </div>
                 </div>
@@ -64,6 +67,6 @@
             </div>
 
     <!-- Javascript links -->
-    <script src="javascript.js"></script>
+    <script src="index_javascript.js"></script>
 </body>
 </html>

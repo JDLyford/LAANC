@@ -21,6 +21,13 @@ var faa;
 var myArray = [];
 var flightPlan = [];
 
+var reset = function (){
+  labelIndex = 0;
+  counter = 0;
+  myArray=[];
+  flightPlan = [];
+ }
+
 
 weatherInitial();
 var infoWindow = new google.maps.InfoWindow;
@@ -94,17 +101,6 @@ function initialize() {
     })
   });
 }
-
-
-// Construct the polygon.
-var shape = new google.maps.Polygon({
-  paths: flightPlan,
-  strokeColor: '#FF0000',
-  strokeOpacity: 0.8,
-  strokeWeight: 2,
-  fillColor: '#FF0000',
-  fillOpacity: 0.35
-});
 
 console.log(window)
 
@@ -191,12 +187,21 @@ $("#submit").on("click", function(event){
   });
 
   for (i = 0; i < myArray.length; i++) {
-    flightPlan.push({lat: myArray[i].latitude, lng: myArray[i].longitude});
+    flightPlan[i] = {lat: myArray[i].latitude, lng: myArray[i].longitude};
   };
-  
-  shape.setMap(window.map);
+  flightPlan[myArray.length] = {lat: myArray[0].latitude, lng: myArray[0].longitude}
 
-  console.log("submitted to database");
+  // Construct the polygon.
+  var shape = new google.maps.Polygon({
+    paths: flightPlan,
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF0000',
+    fillOpacity: 0.35
+  });
+  
+  shape.setMap(map);
 
   $("#body").empty();
   $("#onSiteDate").val("");
@@ -205,5 +210,10 @@ $("#submit").on("click", function(event){
   $("#crew").val("");
   $("#airCraft").val("");
   $("#internalNotes").val("");
+  reset();
 
 });
+
+$("#clear").on("click", function(event){
+ // insert code for clear button to remove markers and polygon on map.
+})
