@@ -39,7 +39,7 @@ function initialize() {
       lat: 28.43,
       lng: -81.31
     },
-    zoom: 8
+    zoom: 12
   });
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -242,7 +242,7 @@ $("#clear").on("click", function initialize() {
       lat: 28.43,
       lng: -81.31
     },
-    zoom: 8
+    zoom: 12
   });
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
