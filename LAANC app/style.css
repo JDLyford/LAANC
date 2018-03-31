@@ -1,3 +1,4 @@
+
 .card {
     background-color: #DCDCDC;
     height: 100%;
@@ -88,4 +89,297 @@ body {
 #info{
     margin-left: 30px;
     margin-bottom: 80px;
+}
+#clear {
+    margin-top: 18px;
+}
+
+@media only screen and (max-width:980px){
+    .card {
+        background-color: #DCDCDC;
+        height: 100%;
+    }
+    
+    #mainContent {
+        margin: 30px 0px 30px 0px;
+    }
+    
+    h5 {
+        padding-bottom: 5px;
+        border-bottom: 3px solid black;
+    }
+    
+    .navbar {
+        background-color:rgb(48, 62, 130); 
+     }
+    
+     #main-div {
+         height: 100%;
+     }
+    
+     #map {
+        top: -38px;
+        height: 100%;
+        width: 730px;
+     }
+    
+     .nav-link{
+         color: white;
+     }
+    
+    body {
+        font-family: 'Play', sans-serif;
+    }
+    
+    #black {
+        background-color: black;
+    }
+    
+    #orange {
+        background-color: orange;
+    }
+    
+    #red {
+        background-color: red;
+    }
+    
+    #blackSquare {
+        border: 1px solid black;
+        background-color: grey;
+        opacity: .8;
+    }
+    
+    .footer{
+        position: absolute;
+        top: -60px;
+        margin-left: 35%;
+    }
+    
+    .table {
+        text-align: center;
+        background: white;
+    }
+    
+    #body {
+        text-align: center;
+    }
+    
+    #mapPage {
+        position: relative;
+        z-index: 5;
+    }
+    
+    #plan {
+        position: relative;
+        z-index: 5;
+    }
+    
+    #centerContent {
+        position: relative;
+    }
+    
+    #tableArea {
+        position: absolute;
+        bottom: 0;
+    }
+    #info{
+        margin-left: 30px;
+        margin-bottom: 80px;
+    }
+    #clear {
+        margin-top: 18px;
+    }   
+}
+
+@media only screen and (max-width:768px){
+    .card {
+        background-color: #DCDCDC;
+        height: 100%;
+    }
+    
+    #mainContent {
+        margin: 30px 0px 30px 0px;
+    }
+    
+    h5 {
+        padding-bottom: 5px;
+        border-bottom: 3px solid black;
+    }
+    
+    .navbar {
+        background-color:rgb(48, 62, 130); 
+     }
+    
+     #main-div {
+         height: 100%;
+     }
+    
+     #map {
+        top: -38px;
+        height: 100%;
+        width: 730px;
+     }
+    
+     .nav-link{
+         color: white;
+     }
+    
+    body {
+        font-family: 'Play', sans-serif;
+    }
+    
+    #black {
+        background-color: black;
+    }
+    
+    #orange {
+        background-color: orange;
+    }
+    
+    #red {
+        background-color: red;
+    }
+    
+    #blackSquare {
+        border: 1px solid black;
+        background-color: grey;
+        opacity: .8;
+    }
+    
+    .footer{
+        position: absolute;
+        top: -60px;
+        margin-left: 35%;
+    }
+    
+    .table {
+        text-align: center;
+        background: white;
+    }
+    
+    #body {
+        text-align: center;
+    }
+    
+    #mapPage {
+        position: relative;
+        z-index: 5;
+    }
+    
+    #plan {
+        position: relative;
+        z-index: 5;
+    }
+    
+    #centerContent {
+        position: relative;
+    }
+    
+    #tableArea {
+        position: absolute;
+        bottom: 0;
+    }
+    #info{
+        margin-left: 30px;
+        margin-bottom: 80px;
+    }
+    #clear {
+        margin-top: 18px;
+    }
+}
+@media only screen and (max-width:640px){
+    .card {
+        background-color: #DCDCDC;
+        height: 100%;
+    }
+    
+    #mainContent {
+        margin: 30px 0px 30px 0px;
+    }
+    
+    h5 {
+        padding-bottom: 5px;
+        border-bottom: 3px solid black;
+    }
+    
+    .navbar {
+        background-color:rgb(48, 62, 130); 
+     }
+    
+     #main-div {
+         height: 100%;
+     }
+    
+     #map {
+        top: -38px;
+        height: 100%;
+        width: 730px;
+     }
+    
+     .nav-link{
+         color: white;
+     }
+    
+    body {
+        font-family: 'Play', sans-serif;
+    }
+    
+    #black {
+        background-color: black;
+    }
+    
+    #orange {
+        background-color: orange;
+    }
+    
+    #red {
+        background-color: red;
+    }
+    
+    #blackSquare {
+        border: 1px solid black;
+        background-color: grey;
+        opacity: .8;
+    }
+    
+    .footer{
+        position: absolute;
+        top: -60px;
+        margin-left: 35%;
+    }
+    
+    .table {
+        text-align: center;
+        background: white;
+    }
+    
+    #body {
+        text-align: center;
+    }
+    
+    #mapPage {
+        position: relative;
+        z-index: 5;
+    }
+    
+    #plan {
+        position: relative;
+        z-index: 5;
+    }
+    
+    #centerContent {
+        position: relative;
+    }
+    
+    #tableArea {
+        position: absolute;
+        bottom: 0;
+    }
+    #info{
+        margin-left: 30px;
+        margin-bottom: 80px;
+    }
+    #clear {
+        margin-top: 18px;
+    }
 }

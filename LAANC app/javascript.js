@@ -60,6 +60,26 @@ function initialize() {
 
   console.log(map)
 
+  function initialize() {
+    var mapOptions = {
+            zoom: 9,
+            center: new google.maps.LatLng(28.9285745, 77.09149350000007),   
+            mapTypeId: google.maps.MapTypeId.TERRAIN
+        };
+
+    var map = new google.maps.Map(document.getElementById('location-canvas'),
+                                    mapOptions);
+                              
+    var marker = new google.maps.Marker({
+                    map: map, 
+                    draggable: false, 
+                    position: new google.maps.LatLng(28.9285745, 77.09149350000007)
+        });
+ }
+                        
+ google.maps.event.addDomListener(window, 'resize', initialize);
+ google.maps.event.addDomListener(window, 'load', initialize);
+
   // create event listener for when map is clicked
   google.maps.event.addListener(map, 'click' ,function(event) {
     addMarker(event.latLng, map);
@@ -213,7 +233,55 @@ $("#submit").on("click", function(event){
   reset();
 
 });
+$("#clear").on("click", function initialize() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {
+      lat: 28.43,
+      lng: -81.31
+    },
+    zoom: 8
+  });
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos1 = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
 
-$("#clear").on("click", function(event){
- // insert code for clear button to remove markers and polygon on map.
-})
+      infoWindow.setPosition(pos1);
+      map.setCenter(pos1);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+
+  console.log(map)
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {
+        lat: 28.43,
+        lng: -81.31
+      },
+      zoom: 8
+    });
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos1 = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+  
+        infoWindow.setPosition(pos1);
+        map.setCenter(pos1);
+      }, function() {
+        handleLocationError(true, infoWindow, map.getCenter());
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+  
+    console.log(map)
+  })
