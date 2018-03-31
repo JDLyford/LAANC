@@ -58,8 +58,6 @@ function initialize() {
     handleLocationError(false, infoWindow, map.getCenter());
   }
 
-  console.log(map)
-
   function initialize() {
     var mapOptions = {
             zoom: 9,
@@ -121,8 +119,6 @@ function initialize() {
     })
   });
 }
-
-console.log(window)
 
 // Adds a marker to the map.
 function addMarker(location, map) {
@@ -194,43 +190,50 @@ $("#submit").on("click", function(event){
   var airCraft = $("#airCraft").val().trim();
   var internalNotes = $("#internalNotes").val().trim();
 
-  database.ref().push({
-    onSiteDate: onSiteDate,
-    onSiteStartTime: onSiteStartTime,
-    onSiteEndTime: onSiteEndTime,
-    pilot: pilot,
-    crew: crew,
-    airCraft: airCraft,
-    internalNotes: internalNotes,
-    faaData: myArray,
-    dateAdded: firebase.database.ServerValue.TIMESTAMP,
-  });
-
-  for (i = 0; i < myArray.length; i++) {
-    flightPlan[i] = {lat: myArray[i].latitude, lng: myArray[i].longitude};
-  };
-  flightPlan[myArray.length] = {lat: myArray[0].latitude, lng: myArray[0].longitude}
-
-  // Construct the polygon.
-  var shape = new google.maps.Polygon({
-    paths: flightPlan,
-    strokeColor: '#FF0000',
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: '#FF0000',
-    fillOpacity: 0.35
-  });
+  if (myArray === "" || onSiteDate === "" || onSiteStartTime === "" || onSiteEndTime === "" || pilot === "" || crew === "" || airCraft === "" || internalNotes === "") {
+    $("#body").append("<tr id='errorText'> <td colspan='4'> Please fill out all forms before submitting</td></tr>");
+  } else {
+    database.ref().push({
+      onSiteDate: onSiteDate,
+      onSiteStartTime: onSiteStartTime,
+      onSiteEndTime: onSiteEndTime,
+      pilot: pilot,
+      crew: crew,
+      airCraft: airCraft,
+      internalNotes: internalNotes,
+      faaData: myArray,
+      dateAdded: firebase.database.ServerValue.TIMESTAMP,
+    });
   
-  shape.setMap(map);
+    for (i = 0; i < myArray.length; i++) {
+      flightPlan[i] = {lat: myArray[i].latitude, lng: myArray[i].longitude};
+    };
+    flightPlan[myArray.length] = {lat: myArray[0].latitude, lng: myArray[0].longitude}
+  
+    // Construct the polygon.
+    var shape = new google.maps.Polygon({
+      paths: flightPlan,
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35
+    });
+    
+    shape.setMap(map);
+  
+    $("#body").empty();
+    $("#onSiteDate").val("");
+    $("#onSiteStartTime").val("");
+    $("#onSiteEndTime").val("");
+    $("#pilot").val("");
+    $("#crew").val("");
+    $("#airCraft").val("");
+    $("#internalNotes").val("");
+    reset();
+  };
 
-  $("#body").empty();
-  $("#onSiteDate").val("");
-  $("#onSiteTime").val("");
-  $("#pilot").val("");
-  $("#crew").val("");
-  $("#airCraft").val("");
-  $("#internalNotes").val("");
-  reset();
+  
 
 });
 $("#clear").on("click", function initialize() {
@@ -257,31 +260,65 @@ $("#clear").on("click", function initialize() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
-
-  console.log(map)
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: {
-        lat: 28.43,
-        lng: -81.31
-      },
-      zoom: 8
-    });
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var pos1 = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
+  function initialize() {
+    var mapOptions = {
+            zoom: 9,
+            center: new google.maps.LatLng(28.9285745, 77.09149350000007),   
+            mapTypeId: google.maps.MapTypeId.TERRAIN
         };
-  
-        infoWindow.setPosition(pos1);
-        map.setCenter(pos1);
-      }, function() {
-        handleLocationError(true, infoWindow, map.getCenter());
-      });
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
-  
-    console.log(map)
-  })
+
+    var map = new google.maps.Map(document.getElementById('location-canvas'),
+                                    mapOptions);
+                              
+    var marker = new google.maps.Marker({
+                    map: map, 
+                    draggable: false, 
+                    position: new google.maps.LatLng(28.9285745, 77.09149350000007)
+        });
+ }
+                        
+ google.maps.event.addDomListener(window, 'resize', initialize);
+ google.maps.event.addDomListener(window, 'load', initialize);
+
+  // create event listener for when map is clicked
+  google.maps.event.addListener(map, 'click' ,function(event) {
+    addMarker(event.latLng, map);
+    
+    longitude = event.latLng.lng();
+    latitude = event.latLng.lat();
+    faa = new Object();
+    faa.longitude = longitude;
+    faa.latitude = latitude;
+    myArray.push(faa);
+    weatherGeo();
+
+    var uasURL ="http://uas-faa.opendata.arcgis.com/datasets/6269fe78dc9848d28c6a17065dd56aaf_0.geojson";
+
+    // call the UAS database
+    $.ajax({
+      url: uasURL,
+      method: "GET"
+    }).then(function(response){
+      // run a for loop to see if clicked location is in one of the squares on the UAS database
+      for (i = 0; i < response.features.length; i++) {
+        if (longitude > response.features[i].geometry.coordinates[0][0][0] && longitude < response.features[i].geometry.coordinates[0][2][0] && latitude < response.features[i].geometry.coordinates[0][1][1] && latitude > response.features[i].geometry.coordinates[0][0][1]) {
+          var airportId = response.features[i].properties.AIRPORTID;
+          var ceiling = response.features[i].properties.CEILING;
+          console.log("found it");
+        }
+      }
+      // if it's not
+      if (airportId === undefined && ceiling === undefined) {
+        console.log("not in UAS grid");
+        var airportId = "No Airport";
+        var ceiling = "N/A";
+      }
+      // append relevant airport information to the table
+      $("#body").append("<tr><td>" + airportId + "</td><td>" + ceiling + "</td><td><input id='" + counter + "' type='text' class='form-control'</td><td> ? </td>");
+
+      counter++;
+
+    })
+  });
+})
+
